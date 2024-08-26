@@ -1,34 +1,51 @@
-class GerenciamentoFuncionarios extends Pessoa{
+import java.util.ArrayList;
 
-    private String cargo;
-    private double salario;
-    private String turnoTrabalho;
-    
-    public GerenciamentoFuncionarios(String nome, int cpf, String cargo, double salario, String turnoTrabalho) {
-        super(nome, cpf);
-        this.cargo = cargo;
-        this.salario = salario;
-        this.turnoTrabalho = turnoTrabalho;
-    }
-    
-    public String getCargo() {
-        return cargo;
-    }
-    public void setCargo(String cargo) {
-        this.cargo = cargo;
-    }
-    public double getSalario() {
-        return salario;
-    }
-    public void setSalario(double salario) {
-        this.salario = salario;
-    }
-    public String getTurnoTrabalho() {
-        return turnoTrabalho;
-    }
-    public void setTurnoTrabalho(String turnoTrabalho) {
-        this.turnoTrabalho = turnoTrabalho;
+import javax.swing.JOptionPane;
+
+public class GerenciamentoFuncionarios {
+    private ArrayList<Funcionario> funcionarios;
+
+    public GerenciamentoFuncionarios() {
+        this.funcionarios = new ArrayList<>();
     }
 
-    
+    public ArrayList<Funcionario> getFuncionarios() {
+        return funcionarios;
+    }
+
+    public void setFuncionarios(ArrayList<Funcionario> funcionarios) {
+        this.funcionarios = funcionarios;
+    }
+
+    public void cadastrarFuncionario(String nome, int cpf, String cargo, double salario, String turno){
+        Funcionario funcionario = new Funcionario(nome, cpf, cargo, salario, turno);
+        funcionarios.add(funcionario);
+    }
+
+    public void editarFuncionario(int cpf, String cargo, String turno, double salario){
+        for(Funcionario f: funcionarios){
+            if(cpf == f.getCpf()){
+                f.setCargo(cargo);
+                f.setTurno(turno);
+                f.setSalario(salario);
+                JOptionPane.showMessageDialog(null, "alterações realizadas com sucesso");
+                f.exibirDetalhes();
+                return;
+            }
+        }
+        JOptionPane.showMessageDialog(null, "funcionario n cadastrado");
+    }
+    public void RegistrarHoraTrabalho(int cpf, int horasTrabalhadas){
+        for(Funcionario f: funcionarios){
+            if(cpf == f.getCpf()){
+                f.setHoras(horasTrabalhadas);
+                JOptionPane.showMessageDialog(null, " registrado as horas de trabalho! ");
+                return;
+    }
+        JOptionPane.showMessageDialog(null, "funcionario nao encontrado");
+}
+    public void CalcularSalario(int cpf, ){
+
+    }
+    }
 }

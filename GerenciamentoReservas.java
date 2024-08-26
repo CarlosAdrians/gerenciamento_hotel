@@ -1,81 +1,99 @@
 import java.util.ArrayList;
+import java.util.Date;
 
 import javax.swing.JOptionPane;
 
-public class GerenciamentoReservas extends Pessoa{
-    private String dataEntrada;
-    private String dataSaida;
-    private Tipo tipo;
-    private int numeroHospedes;
-    private String status;
+public class GerenciamentoReservas{
+    private ArrayList<Reserva> reservas = new ArrayList<Reserva>();
 
-    private ArrayList<GerenciamentoReservas> reservas = new ArrayList<GerenciamentoReservas>();
+    public void CadastrarReserva(Reserva reserva){
+        try{
+            if (verificarDisponibilidadeQuartos(reserva.getQuarto().getNumQuarto(), reserva.getDataEntrada(), reserva.getDataSaida())) {
+                reservas.add(reserva);
+                reserva.getQuarto().setDisponivel("ocupado");
+                JOptionPane.showMessageDialog(null,"sua reserva foi cadatrada com sucesso");
+        }
+            else{
+                JOptionPane.showMessageDialog(null,"o quarto nao esta disponivel para reserva");
+            }
+        }catch(Exception e){
+            JOptionPane.showMessageDialog(null,"erro: " + e.getMessage());
+        }
+}
 
-    public GerenciamentoReservas(String nome, int cpf, String dataEntrada, String dataSaida, Tipo tipo, int numeroHospedes){
-        super(nome, cpf);
-        this.dataEntrada = dataEntrada;
-        this.dataSaida = dataSaida;
-        this.tipo = tipo;
-        this.numeroHospedes = numeroHospedes;
-        this.status="ativo";
-    }
-    public void CancelarReserva(int cpf){
-        for(GerenciamentoReservas reserva: reservas ){
-            if (cpf == reserva.getCpf()){             
-                
-                reservas.remove(reserva);
-                this.status = "cancelado";
+    public void CancelarReserva(int cpf, int numero){
+        for(Reserva r: reservas ){
+            if (r.getHospede().getCpf() == cpf && r.getQuarto().getNumQuarto() == numero)  {     
+                reservas.remove(r);
+                r.getQuarto().setDisponivel("disponível");
                 JOptionPane.showMessageDialog(null,"reserva cancelada");
                 return;
-
+        }
+            else{
+                JOptionPane.showMessageDialog(null,"Sem reserva para esse cpf");
             }
-
+        }
         }
 
-        JOptionPane.showMessageDialog(null, "Sem reserva para esse cpf");
-    }
-
-    public void verificarDisponibilidade(String dataEntrada, String dataSaida, Tipo tipo, int numeroHospedes){
-        if
-
-    }
-
-    public void adicionarReserva(GerenciamentoReservas reserva){
-        reservas.add(reserva);
-    }
-
-    public String getDataEntrada() {
-        return dataEntrada;
-    }
-
-    public void setDataEntrada(String dataEntrada) {
-        this.dataEntrada = dataEntrada;
-    }
-
-    public String getDataSaida() {
-        return dataSaida;
-    }
-
-    public void setDataSaida(String dataSaida) {
-        this.dataSaida = dataSaida;
-    }
-
-    public Tipo getTipo() {
-        return tipo;
-    }
-
-    public void setTipo(Tipo tipo) {
-        this.tipo = tipo;
-    }
-
-    public int getNumeroHospedes() {
-        return numeroHospedes;
-    }
-
-    public void setNumeroHospedes(int numeroHospedes) {
-        this.numeroHospedes = numeroHospedes;
-    }
-
     
+    public boolean verificarDisponibilidadeQuartos(int numeroQ, String dataEntrada, String dataSaida){
+        try{
+
+            for(Reserva reserva: reservas){
+                if(reserva.getQuarto().getNumQuarto() == numeroQ){
+                    if (!(dataEntrada.compareTo(reserva.getDataSaida()) < 0 && dataSaida.compareTo(reserva.getDataEntrada()) > 0)){
+                        JOptionPane.showMessageDialog(null,"quartos disponiveis nas datas previstas, que são " + dataEntrada + " a " + dataSaida + " sendo o tipo de quarto " + reserva.getTipo());
+                        return false;
+                    }
+                    else{
+                        JOptionPane.showMessageDialog(null, "não há quartos disponiveis para a data " + dataEntrada + " a "+ dataSaida);
+                    }
+                }
+            }
+        }catch(Exception e){
+            JOptionPane.showMessageDialog(null,"Teve-se um erro no momento de verificar a disponibilidade: " + e.getMessage());
+        }
+        return true;
+              
+    }
+
+    public Reserva buscarReservaPorHospedeEQuarto(int cpfHospede, int numeroQuarto) {
+        for (Reserva reserva : reservas) {
+            if (reserva.getHospede().getCpf() == cpfHospede && reserva.getQuarto().getNumQuarto() == numeroQuarto) {
+                return reserva;
+            }
+        }
+        return null;
+    }
+
+    public void removerReserva(int cpfHospede, int numQuarto) {
+        Reserva reservaARemover = null;
     
-}
+        for (Reserva reserva : reservas) {
+            if (reserva.getHospede().getCpf() == cpfHospede && reserva.getQuarto().getNumQuarto() == numQuarto) {
+                reservaARemover = reserva;
+                break;
+            }
+        }
+    
+        if (reservaARemover != null) {
+            reservas.remove(reservaARemover);
+            reservaARemover.getQuarto().setDisponivel("disponível"); // Atualiza o status do quarto
+            JOptionPane.showMessageDialog(null, "Reserva removida com sucesso.");
+        } else {
+            JOptionPane.showMessageDialog(null, "nao foi encontrado a reserva");
+        }
+    }
+
+    public Reserva buscarReservaPorQuarto(int numQuarto, Date dataEntrada, Date dataSaida) {
+        for (Reserva reserva : reservas) {
+            
+            if (reserva.getQuarto().getNumQuarto() == numQuarto &&
+                reserva.getDataEntrada().equals(dataEntrada) &&
+                reserva.getDataSaida().equals(dataSaida)) {
+                return reserva;
+            }
+        }
+        return null; 
+    }
+    }
