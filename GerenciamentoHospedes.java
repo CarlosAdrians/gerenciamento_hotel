@@ -5,14 +5,14 @@ class GerenciamentoHospedes {
     private ArrayList<Hospede> hospedes = new ArrayList<Hospede>();
    
 
-    public void buscarCpfCadastrado(int cpf){
+    public Hospede buscarCpfCadastrado(int cpf){
         for(Hospede hospede: hospedes){
             if(cpf == hospede.getCpf()){
-                return;
+                continue;
             }
         }
         JOptionPane.showMessageDialog(null,"hospede nao encontrado, por tanto nao existe um historico de estadia ");
-       
+        return null;
     }
 
     public void adicionarHospede(Hospede hospede){

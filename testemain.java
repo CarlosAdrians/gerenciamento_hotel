@@ -11,7 +11,7 @@ public class testemain {
         GerenciamentoHospedes hotelHospedes = new GerenciamentoHospedes();
         GerenciamentoReservas hotelReservas = new GerenciamentoReservas();
         GerenciamentoFuncionarios hotelFuncionarios = new GerenciamentoFuncionarios();
-
+        
         int opcao = 0;
         String opcaoStr;
         
@@ -119,14 +119,22 @@ public class testemain {
                         String cpfStr = JOptionPane.showInputDialog("DIGITE SEU CPF: ");
                         int cpf = Integer.parseInt(cpfStr);
 
-                        String nomeNovo = JOptionPane.showInputDialog("DIGITE SEU NOVO NOME : ");
+                        Hospede hospede = hotelHospedes.buscarCpfCadastrado(cpf);
 
-                        String enderecoNovo = JOptionPane.showInputDialog("DIGITE O SEU NOVO ENDERECO (RUA PADRAO, 0231: )");
+                        if (hospede == null){
+                            break;
+                        }
+                        else{ 
 
-                        String numeroContatoNovoString = JOptionPane.showInputDialog("DIGITE SEU NOVO NUMERO PARA CONTATO (83986693221): ");
-                        int numeroContatoNovo = Integer.parseInt(numeroContatoNovoString);
+                            String nomeNovo = JOptionPane.showInputDialog("DIGITE SEU NOVO NOME : ");
+                            String enderecoNovo = JOptionPane.showInputDialog("DIGITE O SEU NOVO ENDERECO (RUA PADRAO, 0231: )");
+                            String numeroContatoNovoString = JOptionPane.showInputDialog("DIGITE SEU NOVO NUMERO PARA CONTATO (83986693221): ");
+                            int numeroContatoNovo = Integer.parseInt(numeroContatoNovoString);
+                            hotelHospedes.editarInformacoes(cpf, nomeNovo, enderecoNovo, numeroContatoNovo);
+                        }
 
-                        hotelHospedes.editarInformacoes(cpf, nomeNovo, enderecoNovo, numeroContatoNovo);
+
+
 
                     }
                 }     
@@ -146,21 +154,33 @@ public class testemain {
                         
                         String cpfStr = JOptionPane.showInputDialog("DIGITE O CPF DO HOSPEDE CADASTRADO PARA FAZER A RESERVA: ");
                         int cpf = Integer.parseInt(cpfStr);
-            
-                        String dataEntradaStr = JOptionPane.showInputDialog("DIGITE A SUA DATA DE ENTRADA: ");
-                        Date dataEntrada = new SimpleDateFormat("dd/MM/yyyy").parse(dataEntradaStr);
-                
-                        String dataSairStr = JOptionPane.showInputDialog("DIGITE A SUA DATA DE SAIDA: ");
-                        Date dataSair = new SimpleDateFormat("dd/MM/yyyy").parse(dataSairStr);
-                
-                        String tipoStr = JOptionPane.showInputDialog("ESCOLHA O TIPO DE QUARTO (SOLTEIRO, CASAL, SUITE): ");
-                        Tipo tipo = Tipo.valueOf(tipoStr);
-    
-                        String quantidadeStr = JOptionPane.showInputDialog("DIGITE A QUANTIDADE DE HOSPEDES: ");
-                        int quantidade = Integer.parseInt(quantidadeStr);
 
-                        Reserva reserva = new Reserva(null, null, dataEntrada, dataSair, tipo, quantidade);
-                        hotelReservas.CadastrarReserva(reserva);
+                        Hospede hospede = hotelHospedes.buscarCpfCadastrado(cpf);
+
+                        if (hospede == null){
+                        
+                            break;
+                        
+                        }
+
+                        else{
+                            String dataEntradaStr = JOptionPane.showInputDialog("DIGITE A SUA DATA DE ENTRADA: ");
+                            Date dataEntrada = new SimpleDateFormat("dd/MM/yyyy").parse(dataEntradaStr);
+                    
+                            String dataSairStr = JOptionPane.showInputDialog("DIGITE A SUA DATA DE SAIDA: ");
+                            Date dataSair = new SimpleDateFormat("dd/MM/yyyy").parse(dataSairStr);
+                    
+                            String tipoStr = JOptionPane.showInputDialog("ESCOLHA O TIPO DE QUARTO (SOLTEIRO, CASAL, SUITE): ");
+                            Tipo tipo = Tipo.valueOf(tipoStr);
+        
+                            String quantidadeStr = JOptionPane.showInputDialog("DIGITE A QUANTIDADE DE HOSPEDES: ");
+                            int quantidade = Integer.parseInt(quantidadeStr);
+    
+                            Reserva reserva = new Reserva(hospede, null, dataEntrada, dataSair, tipo, quantidade);
+                            hotelReservas.CadastrarReserva(reserva);
+
+                        }
+            
 
                         }
                     }
@@ -203,16 +223,25 @@ public class testemain {
                             String cpfStr = JOptionPane.showInputDialog("DIGITE SEU CPF: ");
                             int cpf = Integer.parseInt(cpfStr);
 
-                            String nomeNovo = JOptionPane.showInputDialog("DIGITE SEU NOVO NOME : ");
+                            Funcionario funcionario = hotelFuncionarios.buscarCpfCadastrado(cpf);
                             
-                            String cargoNovo = JOptionPane.showInputDialog("DIGITE SEU NOVO CARGO: ");
+                            if(funcionario == null){
+                                break;
+                            }
+                            else{
 
-                            String salarioNovoStr = JOptionPane.showInputDialog("DIGITE SEU NOVO SALARIO: ");
-                            double salarioNovo = Double.parseDouble(salarioNovoStr);
+                                String nomeNovo = JOptionPane.showInputDialog("DIGITE SEU NOVO NOME : ");
+                                
+                                String cargoNovo = JOptionPane.showInputDialog("DIGITE SEU NOVO CARGO: ");
+    
+                                String salarioNovoStr = JOptionPane.showInputDialog("DIGITE SEU NOVO SALARIO: ");
+                                double salarioNovo = Double.parseDouble(salarioNovoStr);
+    
+                                String turnoNovo = JOptionPane.showInputDialog("DIGITE O NOVO TURNO DO SEU TRABALHO: ");
+    
+                                hotelFuncionarios.editarFuncionario(cpf, nomeNovo, cargoNovo, turnoNovo, salarioNovo);
 
-                            String turnoNovo = JOptionPane.showInputDialog("DIGITE O NOVO TURNO DO SEU TRABALHO: ");
-
-                            hotelFuncionarios.editarFuncionario(cpf, cargoNovo, turnoNovo, salarioNovo);
+                            }
                         }
 
                         else if (opcao == 3){

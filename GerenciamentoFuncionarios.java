@@ -1,5 +1,4 @@
 import java.util.ArrayList;
-
 import javax.swing.JOptionPane;
 
 public class GerenciamentoFuncionarios {
@@ -22,9 +21,10 @@ public class GerenciamentoFuncionarios {
         funcionarios.add(funcionario);
     }
 
-    public void editarFuncionario(int cpf, String cargo, String turno, double salario){
+    public void editarFuncionario(int cpf, String nome, String cargo, String turno, double salario){
         for(Funcionario f: funcionarios){
             if(cpf == f.getCpf()){
+                f.setNome(nome);
                 f.setCargo(cargo);
                 f.setTurno(turno);
                 f.setSalario(salario);
@@ -44,9 +44,15 @@ public class GerenciamentoFuncionarios {
     }
         JOptionPane.showMessageDialog(null, "funcionario nao encontrado");
 }
-    public void CalcularSalario(int horasTrabalhadas ){
-        
-
+    
     }
+    public Funcionario buscarCpfCadastrado(int cpf){
+        for(Funcionario funcionario: funcionarios){
+            if(cpf == funcionario.getCpf()){
+                continue;
+            }
+        }
+        JOptionPane.showMessageDialog(null,"Funcionario nao encontrado ");
+        return null;
     }
 }

@@ -36,17 +36,17 @@ public class GerenciamentoReservas{
         }
 
     
-    public boolean verificarDisponibilidadeQuartos(int numeroQ, String dataEntrada, String dataSaida){
+    public boolean verificarDisponibilidadeQuartos(int numeroQ, Date date, Date date2){
         try{
 
             for(Reserva reserva: reservas){
                 if(reserva.getQuarto().getNumQuarto() == numeroQ){
-                    if (!(dataEntrada.compareTo(reserva.getDataSaida()) < 0 && dataSaida.compareTo(reserva.getDataEntrada()) > 0)){
-                        JOptionPane.showMessageDialog(null,"quartos disponiveis nas datas previstas, que são " + dataEntrada + " a " + dataSaida + " sendo o tipo de quarto " + reserva.getTipo());
+                    if (!(date.compareTo(reserva.getDataSaida()) < 0 && date2.compareTo(reserva.getDataEntrada()) > 0)){
+                        JOptionPane.showMessageDialog(null,"quartos disponiveis nas datas previstas, que são " + date + " a " + date2 + " sendo o tipo de quarto " + reserva.getTipo());
                         return false;
                     }
                     else{
-                        JOptionPane.showMessageDialog(null, "não há quartos disponiveis para a data " + dataEntrada + " a "+ dataSaida);
+                        JOptionPane.showMessageDialog(null, "não há quartos disponiveis para a data " + date + " a "+ date2);
                     }
                 }
             }
