@@ -1,12 +1,13 @@
 import java.util.ArrayList;
+import java.util.Date;
 
 public class Hospede extends Pessoa {
-    private String dataNascimento;
+    private Date dataNascimento;
     private String endereco;
     private int numeroContato;
     private ArrayList<String> estadias = new ArrayList<String>();
     
-    public Hospede(String nome, int cpf, String dataNascimento, String endereco, int numeroContato) {
+    public Hospede(String nome, int cpf, Date dataNascimento, String endereco, int numeroContato) {
         super(nome, cpf);
         this.dataNascimento = dataNascimento;
         this.endereco = endereco;
@@ -19,11 +20,11 @@ public class Hospede extends Pessoa {
         estadias.add(estadia);
     }
 
-    public String getDataNascimento() {
+    public Date getDataNascimento() {
         return dataNascimento;
     }
 
-    public void setDataNascimento(String dataNascimento) {
+    public void setDataNascimento(Date dataNascimento) {
         this.dataNascimento = dataNascimento;
     }
 

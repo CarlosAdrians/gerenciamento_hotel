@@ -44,7 +44,8 @@ public class GerenciamentoFuncionarios {
     }
         JOptionPane.showMessageDialog(null, "funcionario nao encontrado");
 }
-    public void CalcularSalario(int cpf, ){
+    public void CalcularSalario(int horasTrabalhadas ){
+        
 
     }
     }

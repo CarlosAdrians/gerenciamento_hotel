@@ -1,12 +1,14 @@
+import java.util.Date;
+
 public class Reserva  {
     private Hospede hospede;
     private Quarto quarto;
-    private String dataEntrada;
-    private String dataSaida;
+    private Date dataEntrada;
+    private Date dataSaida;
     private Tipo tipo;
     private int numeroHospedes;
     
-    public Reserva(Hospede hospede, Quarto quarto, String dataEntrada, String dataSaida, Tipo tipo, int numeroHospedes) {
+    public Reserva(Hospede hospede, Quarto quarto, Date dataEntrada, Date dataSaida, Tipo tipo, int numeroHospedes) {
         this.hospede = hospede;
         this.quarto = quarto;
         this.dataEntrada = dataEntrada;
@@ -31,19 +33,19 @@ public class Reserva  {
         this.quarto = quarto;
     }
 
-    public String getDataEntrada() {
+    public Date getDataEntrada() {
         return dataEntrada;
     }
 
-    public void setDataEntrada(String dataEntrada) {
+    public void setDataEntrada(Date dataEntrada) {
         this.dataEntrada = dataEntrada;
     }
 
-    public String getDataSaida() {
+    public Date getDataSaida() {
         return dataSaida;
     }
 
-    public void setDataSaida(String dataSaida) {
+    public void setDataSaida(Date dataSaida) {
         this.dataSaida = dataSaida;
     }
 

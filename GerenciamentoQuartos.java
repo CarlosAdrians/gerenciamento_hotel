@@ -6,7 +6,7 @@ class  GerenciamentoQuartos{
      
     public void adicionarQuarto(Quarto quarto){
         quartos.add(quarto);
-        JOptionPane.showMessageDialog(null,"Quarto cadastrado com sucesso: " + quarto);
+        JOptionPane.showMessageDialog(null,"Quarto cadastrado com sucesso: " + quarto.getNumQuarto());
     }
 
     public void vizualizarLista(){
@@ -41,9 +41,9 @@ class  GerenciamentoQuartos{
                     JOptionPane.showMessageDialog(null, "Quarto em manutencao!");
                     return;
             } 
-            else{
-                JOptionPane.showMessageDialog(null,"quarto nao encontardo");
-                return;
+                else{
+                    JOptionPane.showMessageDialog(null,"quarto nao encontardo");
+                    return;
             }
             }
         }
