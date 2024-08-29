@@ -183,7 +183,29 @@ public class testemain {
             
 
                         }
+                     else if (opcao == 2){
+
+                        String cpfStr = JOptionPane.showInputDialog("DIGITE SEU CPF: ");
+                        int cpf = Integer.parseInt(cpfStr);
+                        Hospede hospede = hotelHospedes.buscarCpfCadastrado(cpf);
+
+                        if (hospede == null){
+                        
+                            break;
+                        
+                        }
+                        else{
+                            
+                            String numQuartoStr = JOptionPane.showInputDialog("DIGITE O NUMERO DO QUARTO A SER CANCELADO: ");
+                            int numQuarto = Integer.parseInt(numQuartoStr);
+    
+                            hotelReservas.CancelarReserva(cpf, numQuarto);;
+                        }
+
+
+                     }   
                     }
+
 
                     
 
