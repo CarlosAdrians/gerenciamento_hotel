@@ -80,7 +80,7 @@ public class Main {
                     }
 
                     else {
-                        JOptionPane.showMessageDialog(null, "Opçao inválida!");
+                        JOptionPane.showMessageDialog(null, "Opção inválida!");
                     }
                 }
             }
@@ -133,16 +133,26 @@ public class Main {
                         Hospede hospede = hotelHospedes.buscarCpfCadastrado(cpf);
 
                         if (hospede == null){
-                            break;
+                        
                         }
                         else{ 
 
                             String nomeNovo = JOptionPane.showInputDialog("Digite seu novo nome: ");
+                            
                             String enderecoNovo = JOptionPane.showInputDialog("Digite o seu novo endereço (RUA PADRAO, 0231 ): ");
+                            
                             String numeroContatoNovoString = JOptionPane.showInputDialog("Digite seu novo número de contato (83986693221): ");
                             int numeroContatoNovo = Integer.parseInt(numeroContatoNovoString);
+                            
                             hotelHospedes.editarInformacoes(cpf, nomeNovo, enderecoNovo, numeroContatoNovo);
                         }
+                    }
+                    else if(opcao == 4){
+                        JOptionPane.showMessageDialog(null, "Aperte OK para confirmar");
+                    }
+
+                    else {
+                        JOptionPane.showMessageDialog(null, "Opção inválida!");
                     }
                 }     
             }
@@ -196,101 +206,129 @@ public class Main {
                     
                         if (opcao == 2){
 
-                       String cpfStr = JOptionPane.showInputDialog("Digite o seu cpf: ");
-                       int cpf = Integer.parseInt(cpfStr);
-                       
-                       String numQuartoStr = JOptionPane.showInputDialog("Digite o numero do quarto a ser cancelado: ");
-                       int numQuarto = Integer.parseInt(numQuartoStr);
-                       
-                       Reserva reserva = hotelReservas.buscarReservaPorHospedeEQuarto(cpf, numQuarto);
-
-                       if (reserva == null){
-                           break;
-                       }
-                       
-                       else{
-                           hotelReservas.CancelarReserva(cpf, numQuarto);
-                       }
-                    }   
-                }
-            }
-                    
-
-
-                else if (opcao == 4){
-                        
-                    while (opcao != 4){
-                        opcaoStr = JOptionPane.showInputDialog( "Area de funcionarios\n" +
-                        "1. Cadastrar informações de funcionario \n" +
-                        "2. Editar informações de funcionario \n" +
-                        "3. Calcular salário \n" +
-                        "4. Voltar para o menu principal \n" + 
-                        "Escolha uma opção: ");
-                        opcao = Integer.parseInt(opcaoStr);
-                        
-                        if (opcao == 1){
-                            
-                            String nome = JOptionPane.showInputDialog("Digite seu nome completo: ");
-
-                            String cpfStr = JOptionPane.showInputDialog("Digite seu cpf: ");
-                            int cpf = Integer.parseInt(cpfStr);
-
-                            String cargo = JOptionPane.showInputDialog("Digite o seu cargo: ");
-
-                            String salarioStr = JOptionPane.showInputDialog("Digite o seu salário: ");
-                            double salario = Double.parseDouble(salarioStr);
-
-                            String turno = JOptionPane.showInputDialog("Digite o turno do seu trabalho: ");
-
-                            hotelFuncionarios.cadastrarFuncionario(nome, cpf, cargo, salario, turno);
-
-                        }
-                        else if (opcao == 2){
-                           
                             String cpfStr = JOptionPane.showInputDialog("Digite o seu cpf: ");
                             int cpf = Integer.parseInt(cpfStr);
+                       
+                            String numQuartoStr = JOptionPane.showInputDialog("Digite o numero do quarto a ser cancelado: ");
+                            int numQuarto = Integer.parseInt(numQuartoStr);
+                       
+                            Reserva reserva = hotelReservas.buscarReservaPorHospedeEQuarto(cpf, numQuarto);
 
-                            Funcionario funcionario = hotelFuncionarios.buscarCpfCadastrado(cpf);
-                            
-                            if(funcionario == null){
+                            if (reserva == null){
                                 break;
                             }
+                       
                             else{
-
-                                String nomeNovo = JOptionPane.showInputDialog("Digite o seu novo nome : ");
-                                
-                                String cargoNovo = JOptionPane.showInputDialog("Digite o seu novo cargo: ");
-    
-                                String salarioNovoStr = JOptionPane.showInputDialog("Digite o seu novo salario: ");
-                                double salarioNovo = Double.parseDouble(salarioNovoStr);
-    
-                                String turnoNovo = JOptionPane.showInputDialog("Digite o seu novo turno de trabalho: ");
-    
-                                hotelFuncionarios.editarFuncionario(cpf, nomeNovo, cargoNovo, turnoNovo, salarioNovo);
-
+                                hotelReservas.CancelarReserva(cpf, numQuarto);
                             }
                         }
                         else if (opcao == 3){
+                            String numQuartoStr = JOptionPane.showInputDialog("Digite o numero do quarto para fazer a reserva: ");
+                            int numQuarto = Integer.parseInt(numQuartoStr);
 
-                            String cpfStr = JOptionPane.showInputDialog("Digite o seu cpf: ");
-                            int cpf = Integer.parseInt(cpfStr);
+                            String dataEntradaStr = JOptionPane.showInputDialog("Digite a sua data de entrada: ");
+                            Date dataEntrada = new SimpleDateFormat("dd/MM/yyyy").parse(dataEntradaStr);
+                            
+                            String dataSairStr = JOptionPane.showInputDialog("Digite a sua data de saida: ");
+                            Date dataSair = new SimpleDateFormat("dd/MM/yyyy").parse(dataSairStr);
 
-                            String horasStr = JOptionPane.showInputDialog("Digite suas horas extras trabalhadas no mês: ");
-                            int horas = Integer.parseInt(horasStr);
+                            hotelReservas.verificarDisponibilidadeQuartos(numQuarto, dataEntrada, dataSair);
+                        }
 
-                            hotelFuncionarios.CalcularSalario(cpf, horas);
+
+                        else if(opcao == 4){
+                            JOptionPane.showMessageDialog(null, "Aperte OK para confirmar");
+                        }
+
+                        else {
+                            JOptionPane.showMessageDialog(null, "Opção inválida!");
+                        }   
+                    }
+            }
+            
+            else if (opcao == 4){
+                
+                opcao = 0;           
+                while (opcao != 4 ){
+                    opcaoStr = JOptionPane.showInputDialog( "Area de funcionarios\n" +
+                    "1. Cadastrar informações de funcionario \n" +
+                    "2. Editar informações de funcionario \n" +
+                    "3. Calcular salário \n" +
+                    "4. Voltar para o menu principal \n" + 
+                    "Escolha uma opção: ");
+                    opcao = Integer.parseInt(opcaoStr);
+                        
+                    if (opcao == 1){
+                            
+                        String nome = JOptionPane.showInputDialog("Digite seu nome completo: ");
+
+                        String cpfStr = JOptionPane.showInputDialog("Digite seu cpf: ");
+                        int cpf = Integer.parseInt(cpfStr);
+
+                        String cargo = JOptionPane.showInputDialog("Digite o seu cargo: ");
+
+                        String salarioStr = JOptionPane.showInputDialog("Digite o seu salário: ");
+                        double salario = Double.parseDouble(salarioStr);
+
+                        String turno = JOptionPane.showInputDialog("Digite o turno do seu trabalho: ");
+
+                        hotelFuncionarios.cadastrarFuncionario(nome, cpf, cargo, salario, turno);
+
+                    }
+                    else if (opcao == 2){
+                           
+                        String cpfStr = JOptionPane.showInputDialog("Digite o seu cpf: ");
+                        int cpf = Integer.parseInt(cpfStr);
+
+                        Funcionario funcionario = hotelFuncionarios.buscarCpfCadastrado(cpf);
+                            
+                        if(funcionario == null){
+                            break;
+                        }
+                        else{
+
+                            String nomeNovo = JOptionPane.showInputDialog("Digite o seu novo nome : ");
+                                
+                            String cargoNovo = JOptionPane.showInputDialog("Digite o seu novo cargo: ");
+    
+                            String salarioNovoStr = JOptionPane.showInputDialog("Digite o seu novo salario: ");
+                            double salarioNovo = Double.parseDouble(salarioNovoStr);
+    
+                            String turnoNovo = JOptionPane.showInputDialog("Digite o seu novo turno de trabalho: ");
+    
+                            hotelFuncionarios.editarFuncionario(cpf, nomeNovo, cargoNovo, turnoNovo, salarioNovo);
 
                         }
+                    }
+                    else if (opcao == 3){
+
+                        String cpfStr = JOptionPane.showInputDialog("Digite o seu cpf: ");
+                        int cpf = Integer.parseInt(cpfStr);
+
+                        String horasStr = JOptionPane.showInputDialog("Digite suas horas extras trabalhadas no mês: ");
+                        int horas = Integer.parseInt(horasStr);
+
+                        hotelFuncionarios.CalcularSalario(cpf, horas);
+
+                    }
+                    else if(opcao == 4){
+                        JOptionPane.showMessageDialog(null, "Aperte OK para confirmar");
+                    }
+    
+                    else {
+                        JOptionPane.showMessageDialog(null, "Opção inválida!");
+                    }  
                 }
             }
+            
             else if (opcao == 5){
 
                 while(opcao != 2){
                     opcaoStr = JOptionPane.showInputDialog( "Area de check-in \n" +
-                        "1. Realizar check-in \n" +
-                        "2. Voltar para o menu principal \n" + 
-                        "Escolha uma opção: ");
-                        opcao = Integer.parseInt(opcaoStr);
+                    "1. Realizar check-in \n" +
+                    "2. Voltar para o menu principal \n" + 
+                    "Escolha uma opção: ");
+                    opcao = Integer.parseInt(opcaoStr);
 
                         if (opcao == 1){
                             
@@ -303,65 +341,83 @@ public class Main {
                                 break;
                             }    
                         
-                        else{
-                            String dataEntradaStr = JOptionPane.showInputDialog("Digite a sua data entrada: ");
-                            Date dataEntrada = new SimpleDateFormat("dd/MM/yyyy").parse(dataEntradaStr);
+                            else{
+                                String dataEntradaStr = JOptionPane.showInputDialog("Digite a sua data entrada: ");
+                                Date dataEntrada = new SimpleDateFormat("dd/MM/yyyy").parse(dataEntradaStr);
                             
-                            String dataSairStr = JOptionPane.showInputDialog("Digite a sua data de saida: ");
-                            Date dataSair = new SimpleDateFormat("dd/MM/yyyy").parse(dataSairStr);
+                                String dataSairStr = JOptionPane.showInputDialog("Digite a sua data de saida: ");
+                                Date dataSair = new SimpleDateFormat("dd/MM/yyyy").parse(dataSairStr);
                             
-                            for (Quarto q : quartos) {
-                                if (q.getDisponivel().equalsIgnoreCase("Disponível")) {
+                                for (Quarto q : quartos) {
+                                    if (q.getDisponivel().equalsIgnoreCase("Disponível")) {
                                     
                                     check_in_out.realizarCheckIn(hospede, q, dataEntrada, dataSair);
                                     JOptionPane.showMessageDialog(null, "Check-in realizado com sucesso!");
                                     break;
+                                    }
+                                }
+
+                            }
+
+                        }
+                        else if(opcao == 2){
+                            JOptionPane.showMessageDialog(null, "Aperte OK para confirmar");
+                        }
+
+                        else {
+                            JOptionPane.showMessageDialog(null, "Opção inválida!");
+                        }  
+                }  
+            }
+            else if (opcao == 6){
+                while(opcao != 2){
+                
+                    opcaoStr = JOptionPane.showInputDialog( "Area de check-out \n" +
+                    "1. Realizar check-out \n" +
+                    "2. Voltar para o menu principal \n" + 
+                    "Escolha uma opção: ");
+                    opcao = Integer.parseInt(opcaoStr);
+                
+                    if (opcao == 1){
+                            
+                        String cpfStr = JOptionPane.showInputDialog("Digite o cpf do hospede cadastrado para realizar o check-out: ");
+                        int cpf = Integer.parseInt(cpfStr);
+
+                        Hospede hospede = hotelHospedes.buscarCpfCadastrado(cpf);
+
+                        if (hospede == null){
+                            break;
+                        }    
+                
+                        else{   
+                            for (Quarto q : quartos) {
+                                if (q.getDisponivel().equalsIgnoreCase("Disponível")) {
+                            
+                                check_in_out.realizarCheckOut(hospede, q);
+                                JOptionPane.showMessageDialog(null, "Check-out realizado com sucesso!");
+                                break;
                                 }
                             }
 
                         }
 
-                }
-            }  
-        }
-        else if (opcao == 6){
-            while(opcao != 2){
-                
-                opcaoStr = JOptionPane.showInputDialog( "Area de check-out \n" +
-                "1. Realizar check-out \n" +
-                "2. Voltar para o menu principal \n" + 
-                "Escolha uma opção: ");
-                opcao = Integer.parseInt(opcaoStr);
-                
-                if (opcao == 1){
-                            
-                    String cpfStr = JOptionPane.showInputDialog("Digite o cpf do hospede cadastrado para realizar o check-out: ");
-                    int cpf = Integer.parseInt(cpfStr);
-
-                    Hospede hospede = hotelHospedes.buscarCpfCadastrado(cpf);
-
-                    if (hospede == null){
-                        break;
-                    }    
-                
-                else{   
-                    for (Quarto q : quartos) {
-                        if (q.getDisponivel().equalsIgnoreCase("Disponível")) {
-                            
-                            check_in_out.realizarCheckOut(hospede, q);
-                            JOptionPane.showMessageDialog(null, "Check-out realizado com sucesso!");
-                            break;
-                        }
+                    }
+                    else if(opcao == 2){
+                        JOptionPane.showMessageDialog(null, "Aperte OK para confirmar");
                     }
 
+                    else {
+                        JOptionPane.showMessageDialog(null, "Opção inválida!");
+                    }  
                 }
-
-        }
-
-
-                }
-
+            }          
+            else if(opcao == 7){
+                JOptionPane.showMessageDialog(null, "Aperte OK para confirmar");
             }
-     }
+    
+            else {
+                JOptionPane.showMessageDialog(null, "Opção inválida!");
+            }
+        }     
     }
 }

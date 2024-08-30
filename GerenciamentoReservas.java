@@ -42,11 +42,11 @@ public class GerenciamentoReservas{
             for(Reserva reserva: reservas){
                 if(reserva.getQuarto().getNumQuarto() == numeroQ){
                     if (!(date.compareTo(reserva.getDataSaida()) < 0 && date2.compareTo(reserva.getDataEntrada()) > 0)){
-                        JOptionPane.showMessageDialog(null,"quartos disponiveis nas datas previstas, que são " + date + " a " + date2 + " sendo o tipo de quarto " + reserva.getTipo());
+                        JOptionPane.showMessageDialog(null,"Quartos disponiveis nas datas previstas, que são " + date + " a " + date2 + " sendo o tipo de quarto " + reserva.getTipo());
                         return false;
                     }
                     else{
-                        JOptionPane.showMessageDialog(null, "não há quartos disponiveis para a data " + date + " a "+ date2);
+                        JOptionPane.showMessageDialog(null, "Não há quartos disponiveis para a data " + date + " a "+ date2);
                     }
                 }
             }
