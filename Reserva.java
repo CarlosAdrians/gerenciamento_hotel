@@ -16,6 +16,13 @@ public class Reserva  {
         this.tipo = tipo;
         this.numeroHospedes = numeroHospedes;
     }
+    
+    public Reserva(Hospede hospede, Quarto quarto, Date dataEntrada, Date dataSaida){
+        this.hospede = hospede;
+        this.quarto = quarto;
+        this.dataEntrada = dataEntrada;
+        this.dataSaida = dataSaida;
+    }
 
     public Hospede getHospede() {
         return hospede;

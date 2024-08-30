@@ -55,4 +55,14 @@ public class GerenciamentoFuncionarios {
         JOptionPane.showMessageDialog(null,"Funcionario nao encontrado ");
         return null;
     }
+
+    public void CalcularSalario(int cpf, int horasTrabalhadas){
+        for(Funcionario f: funcionarios){
+            if(f.getCpf() == cpf && f.getHoras() == horasTrabalhadas){
+                int horasextras= horasTrabalhadas*40;
+                f.setSalario(f.getSalario() + horasextras);
+                JOptionPane.showMessageDialog(null, "O seu salário é: " + horasextras);
+            }
+        }
+}
 }

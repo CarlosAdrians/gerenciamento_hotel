@@ -78,7 +78,7 @@ public class GerenciamentoReservas{
     
         if (reservaARemover != null) {
             reservas.remove(reservaARemover);
-            reservaARemover.getQuarto().setDisponivel("disponível"); // Atualiza o status do quarto
+            reservaARemover.getQuarto().setDisponivel("disponível"); 
             JOptionPane.showMessageDialog(null, "Reserva removida com sucesso.");
         } else {
             JOptionPane.showMessageDialog(null, "nao foi encontrado a reserva");

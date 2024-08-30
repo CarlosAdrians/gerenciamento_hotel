@@ -1,16 +1,16 @@
 
-import java.util.Date;
 import java.time.LocalDate;
 import java.time.ZoneId;
 import java.time.temporal.ChronoUnit;
+import java.util.Date;
 import javax.swing.JOptionPane;
 
-public class check {
+public class Check {
         private GerenciamentoQuartos gerenciamentoquartos;
         private GerenciamentoHospedes gerenciamentohospedes;
         private GerenciamentoReservas gerenciamentoreservas;
 
-        public check(GerenciamentoQuartos gerenciamentoquartos, GerenciamentoHospedes gerenciamentohospedes,
+        public Check(GerenciamentoQuartos gerenciamentoquartos, GerenciamentoHospedes gerenciamentohospedes,
                 GerenciamentoReservas gerenciamentoreservas) {
             this.gerenciamentoquartos = gerenciamentoquartos;
             this.gerenciamentohospedes = gerenciamentohospedes;
@@ -54,7 +54,7 @@ public class check {
                     
                     double valorTotal = diasEstadia * quarto.getPreco();
                     quarto.setDisponivel("disponível");
-                    gerenciamentoreservas.removerReserva(reserva);
+                    gerenciamentoreservas.removerReserva(hospede.getCpf(), quarto.getNumQuarto());
             
             JOptionPane.showMessageDialog(null, "Check-out realizado com sucesso para o hóspede " + hospede.getNome() + ".\nValor total: R$ " + valorTotal);
 
@@ -63,7 +63,7 @@ public class check {
         }
 
     } catch (Exception e) {
-        JOptionPane.showMessageDialog(null, "Erro ao realizar o check-out: " + e.getMessage());
+        JOptionPane.showMessageDialog(null, "Erro ao realizar o Check-out: " + e.getMessage());
     }
 }
 
